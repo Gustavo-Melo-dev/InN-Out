@@ -11,17 +11,14 @@ class Model {
 
     public function loadFromArray($arr, $sanitize = true) {
         if($arr) {
-            // $conn = Database::getConnection();
             foreach($arr as $key => $value) {
                 $cleanValue = $value;
                 if($sanitize && isset($cleanValue)) {
                     $cleanValue = strip_tags(trim($cleanValue));
                     $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
-                    // $cleanValue = mysqli_real_escape_string($conn, $cleanValue);
                 }
                 $this->$key = $cleanValue;
             }
-            // $conn->close();
         }
     }
 
@@ -40,7 +37,7 @@ class Model {
     public static function getOne($filters = [], $columns = '*') {
         $class = get_called_class();
         $result = static::getResultSetFromSelect($filters, $columns);
-        return $result ? new $class($result->fetch_assoc()) : null;
+        return $result ? new $class($result->fetch(PDO::FETCH_ASSOC)) : null;
     }
 
     public static function get($filters = [], $columns = '*') {
@@ -48,7 +45,7 @@ class Model {
         $result = static::getResultSetFromSelect($filters, $columns);
         if($result) {
             $class = get_called_class();
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 array_push($objects, new $class($row));
             }
         }
@@ -91,7 +88,7 @@ class Model {
     public static function getCount($filters = []) {
         $result = static::getResultSetFromSelect(
             $filters, 'count(*) as count');
-        return $result->fetch_assoc()['count'];
+        return $result->fetch(PDO::FETCH_ASSOC)['count'];
     }
 
     public function delete() {

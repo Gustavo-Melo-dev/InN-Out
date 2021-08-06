@@ -122,7 +122,7 @@ class WorkingHours extends Model {
 
         $absentUsers = [];
         if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 array_push($absentUsers, $row['name']);
             }
         }
@@ -136,7 +136,7 @@ class WorkingHours extends Model {
         $result = static::getResultSetFromSelect([
             'raw' => "work_date BETWEEN '{$startDate}' AND '{$endDate}'"
         ], "sum(worked_time) as sum");
-        return $result->fetch_assoc()['sum'];
+        return $result->fetch(PDO::FETCH_ASSOC)['sum'];
     }
 
     public static function getMonthlyReport($userId, $date) {
@@ -150,7 +150,7 @@ class WorkingHours extends Model {
         ]);
 
         if($result) {
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $registries[$row['work_date']] = new WorkingHours($row);
             }
         }

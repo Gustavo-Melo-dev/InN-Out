@@ -2,7 +2,6 @@
     <?php
         renderTitle(
             'Cadastro de Usuários',
-            'Mantenha os dados dos usuários atualizados',
             'icofont-users'
         );
 
@@ -12,7 +11,7 @@
     <a class="btn btn-lg btn-primary mb-3"
         href="save_user.php">Novo Usuário</a>
 
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover text-center">
         <thead>
             <th>Nome</th>
             <th>Email</th>

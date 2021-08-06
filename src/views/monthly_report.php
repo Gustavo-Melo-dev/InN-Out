@@ -2,7 +2,6 @@
 	<?php
 		renderTitle(
 			'Relatório Mensal',
-			'Acompanhe seu saldo de horas',
 			'icofont-ui-calendar'
 		);
 	?>
@@ -34,7 +33,7 @@
 			</div>
 		</form>
 
-		<table class="table table-bordered table-striped table-hover">
+		<table class="table table-bordered table-striped table-hover text-center">
 			<thead>
 				<th>Dia</th>
 				<th>Entrada 1</th>
